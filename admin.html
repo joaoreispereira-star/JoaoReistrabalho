@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Painel Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body class="admin-body">
+    <div class="painel-container">
+      <h2>🚀 Área do Lojista</h2>
+      <div class="usuario-logado">
+        <p>Operador: <span id="nome-usuario">Carregando...</span></p>
+        <button onclick="sairDoSistema()" class="btn-sair">
+          Sair do Sistema
+        </button>
+      </div>
+      <button
+        onclick="cadastrarEstoqueCompleto()"
+        style="
+          background-color: #f39c12;
+          margin-bottom: 20px;
+          color: white;
+          border: none;
+          padding: 10px;
+          border-radius: 8px;
+          cursor: pointer;
+          width: 100%;
+        "
+      >
+        ⚡ Desafio: Cadastrar 15 Itens de Vez
+      </button>
+
+      <div class="form-grupo">
+        <label>Nome do Produto:</label>
+        <input type="text" id="input-nome" placeholder="Ex: Tênis Nike" />
+      </div>
+
+      <div class="form-grupo">
+        <label>Preço:</label>
+        <input
+          type="number"
+          id="input-preco"
+          step="0.01"
+          placeholder="Ex: 199.90"
+        />
+      </div>
+
+      <div class="form-grupo">
+        <label>Link da Imagem:</label>
+        <input type="text" id="input-imagem" placeholder="Ex: img/foto.jpg" />
+      </div>
+
+      <button onclick="cadastrarProduto()">Salvar Produto</button>
+      <p id="mensagem-aviso"></p>
+
+      <div style="margin-top: 20px; text-align: center">
+        <a href="index.html" style="text-decoration: none; color: #666"
+          >← Voltar para a Loja</a
+        >
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

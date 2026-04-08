@@ -1,0 +1,141 @@
+/* --- 1. CONFIGURAÇÕES GERAIS E FONTE --- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg: #f1f5f9;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --white: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+/* --- 2. VITRINE (index.html) --- */
+#vitrine {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card-produto {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-produto:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-produto img {
+  border-radius: 12px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.preco-destaque {
+  font-weight: 800;
+  color: var(--primary);
+  font-size: 1.4rem;
+  margin: 10px 0;
+}
+
+/* --- 3. LOGIN E PAINEL ADMIN (login.html / admin.html) --- */
+.admin-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%);
+}
+
+.painel-container {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--primary);
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* --- 4. ÁREA DO LOJISTA (AQUI ESTÁ!) --- */
+.loja-footer {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--white);
+  border-top: 1px solid #e2e8f0;
+  margin-top: 50px;
+}
+
+.loja-footer p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.link-admin {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 700;
+  border: 2px solid var(--primary);
+  padding: 12px 25px;
+  border-radius: 50px;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.link-admin:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
