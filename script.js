@@ -1,14 +1,12 @@
-// 1. CONFIGURAÇÃO DO BANCO DE DADOS
+// CONFIGURAÇÃO DO BANCO DE DADOS
 const supabaseUrl = "https://khkiewnojpelftnsjjop.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtoa2lld25vanBlbGZ0bnNqam9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjM0MDcsImV4cCI6MjA4OTgzOTQwN30.d-6NPeymO8LuZFKFmX5ddYHBHszOIhsQqcBSQ9a1SJg";
 
-// Inicia a conexão
 const banco = window.supabase.createClient(supabaseUrl, supabaseKey);
+let carrinho = JSON.parse(localStorage.getItem("meu_carrinho")) || [];
 
-// 2. FUNÇÃO PARA BUSCAR E DESENHAR OS PRODUTOS
 async function carregarCatalogo() {
-  // Faz um SELECT * FROM produtos na nuvem
   let { data: produtos, error } = await banco.from("produtos").select("*");
 
   if (error) {
@@ -17,11 +15,9 @@ async function carregarCatalogo() {
   }
 
   let vitrine = document.getElementById("vitrine");
-  vitrine.innerHTML = ""; // Limpa a tela
+  vitrine.innerHTML = "";
 
-  // Loop para desenhar cada produto na tela
   produtos.forEach((item) => {
-    // --- PASSO 3: A MÁSCARA DE DINHEIRO ---
     let precoFormatado = Number(item.preco).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -32,11 +28,58 @@ async function carregarCatalogo() {
     div.innerHTML = `
             <img src="${item.imagem_url}" width="150">
             <h3>${item.nome}</h3>
-            <p class="preco-destaque">${precoFormatado}</p>
+            <p class="preco-destaque">${precoFormatado}</p>   
+            <button onclick="adicionarAoCarrinho('${item.nome}', ${item.preco})">
+                Adicionar ao Carrinho
+            </button>
         `;
     vitrine.appendChild(div);
   });
 }
 
-// Roda a função assim que o site abrir
+function adicionarAoCarrinho(nome, preco) {
+  const item = { nome, preco };
+  carrinho.push(item);
+  atualizarCarrinho();
+}
+
+// DESAFIO 1: Função para remover item específico
+function removerItem(index) {
+  carrinho.splice(index, 1); // Remove 1 item na posição index
+  atualizarCarrinho(); // Redesenha a tela
+}
+
+function atualizarCarrinho() {
+  const listaHtml = document.getElementById("lista-carrinho");
+  const totalHtml = document.getElementById("valor-total");
+
+  listaHtml.innerHTML = "";
+  let somaTotal = 0;
+
+  carrinho.forEach((item, index) => {
+    somaTotal += item.preco;
+    // Adicionado o botão ❌ chamando removerItem(index)
+    listaHtml.innerHTML += `
+            <li>
+                <span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+                <button class="btn-remover" onclick="removerItem(${index})">❌</button>
+            </li>`;
+  });
+
+  totalHtml.innerText = somaTotal.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  localStorage.setItem("meu_carrinho", JSON.stringify(carrinho));
+}
+
+function esvaziarCarrinho() {
+  if (confirm("Deseja realmente limpar todo o carrinho?")) {
+    carrinho = [];
+    atualizarCarrinho();
+  }
+}
+
+atualizarCarrinho();
 carregarCatalogo();
